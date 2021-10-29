@@ -36,4 +36,8 @@ price = pd.read_csv(london_house_price)
 ward.plot(color='None', edgecolor='gray', linewidth=0.8)
 plt.show()
 
+price_geo = ward.merge(price, right_on='Code', left_on='GSS_CODE', how='right')
+price_geo.plot(color='None', edgecolor='gray', linewidth=0.8)
+plt.show()
+
 print('done')
