@@ -37,7 +37,20 @@ ward.plot(color='None', edgecolor='gray', linewidth=0.8)
 plt.show()
 
 price_geo = ward.merge(price, right_on='Code', left_on='GSS_CODE', how='right')
-price_geo.plot(color='None', edgecolor='gray', linewidth=0.8)
-plt.show()
+#price_geo.plot(color='None', edgecolor='gray', linewidth=0.8)
+#plt.show()
+
+# Print all unique values for column Year
+print(price_geo['Year'].unique())
+
+# Print all unique values for column Measure
+print(price_geo['Measure'].unique())
+
+for period in price_geo['Year'].unique():
+    price_period = price_geo[price_geo['Year'] == period]
+    price_period_mean = price_period[price_period['Measure'] == 'Mean']
+    price_period_mean.plot(column='Value', cmap='OrRd', edgecolor='k', legend=False)
+    plt.show()
+    # plt.savefig('/maps/map ' + period + '.png')
 
 print('done')
