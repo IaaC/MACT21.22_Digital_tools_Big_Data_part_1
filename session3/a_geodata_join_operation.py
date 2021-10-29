@@ -26,10 +26,14 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # read geospatial data
-municipalities_geojson = '../data/catalunya/municipalities.geojson'
-municipalities = geopandas.read_file(municipalities_geojson)
+london_ward_geojson = '../data/london/london_ward.geojson'
+ward = geopandas.read_file(london_ward_geojson)
+# read CSV data
+london_house_price = '../data/london/land-registry-house-prices-ward.csv'
+price = pd.read_csv(london_house_price)
 
 # Create a view using geospatial data
-municipalities.plot(color='None', edgecolor='gray', linewidth=0.8)
+ward.plot(color='None', edgecolor='gray', linewidth=0.8)
+plt.show()
 
 print('done')
