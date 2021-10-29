@@ -31,3 +31,5 @@ municipalities = geopandas.read_file(municipalities_geojson)
 
 # Create a view using geospatial data
 municipalities.plot(color='None', edgecolor='gray', linewidth=0.8)
+
+print('done')
