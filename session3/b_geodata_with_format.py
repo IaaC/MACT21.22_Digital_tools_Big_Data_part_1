@@ -32,23 +32,22 @@ ward = geopandas.read_file(london_ward_geojson)
 london_house_price = '../data/london/land-registry-house-prices-ward.csv'
 price = pd.read_csv(london_house_price)
 
-# Create a view using geospatial data
-ward.plot(color='blue', edgecolor='white', linewidth=0.2)
-plt.show()
-
+# Merging the two dataframes, starting from the geodataframe
 price_geo = ward.merge(price, right_on='Code', left_on='GSS_CODE', how='right')
 
-# Print all unique values for column Year
-print(price_geo['Year'].unique())
-
-# Print all unique values for column Measure
-print(price_geo['Measure'].unique())
-
 for period in price_geo['Year'].unique():
+    print('Generating map for period: ' + period)
     price_period = price_geo[price_geo['Year'] == period]
     price_period_mean = price_period[price_period['Measure'] == 'Mean']
-    price_period_mean.plot(column='Value', cmap='OrRd', edgecolor='k', legend=False)
+    price_period_mean.plot(column='Value', scheme='quantiles', cmap='OrRd', edgecolor='k', legend=True)
+    plt.title(period)
+    plt.axis('off')
     plt.show()
     # plt.savefig('/maps/map ' + period + '.png')
 
 print('done')
+
+#
+fig, (ax1,ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 16))
+ax1 = geodataframe.plot(ax=ax1, column='obs', legend=True)
+ax2 = geodataframe.plot(ax=ax2, column='pred', legend=True)
